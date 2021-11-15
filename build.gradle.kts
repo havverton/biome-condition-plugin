@@ -5,6 +5,9 @@ plugins {
   id("io.papermc.paperweight.userdev") version "1.3.2"
   id("xyz.jpenilla.run-paper") version "1.0.6" // Adds runServer and runMojangMappedServer tasks for testing
   id("net.minecrell.plugin-yml.bukkit") version "0.5.1" // Generates plugin.yml
+
+  // Shades and relocates dependencies into our plugin jar. See https://imperceptiblethoughts.com/shadow/introduction/
+  id("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
 group = "io.papermc.paperweight"
@@ -23,6 +26,11 @@ dependencies {
   // You will need to manually specify the full dependency if using the groovy gradle dsl
   // (paperDevBundle and paperweightDevBundle functions do not work in groovy)
   // paperweightDevelopmentBundle("io.papermc.paper:dev-bundle:1.18-R0.1-SNAPSHOT")
+
+  // Shadow will include the runtimeClasspath by default, which implementation adds to.
+  // Dependencies you don't want to include go in the compileOnly configuration.
+  // Make sure to relocate shaded dependencies!
+  implementation("cloud.commandframework", "cloud-paper", "1.6.0")
 }
 
 tasks {
@@ -52,6 +60,15 @@ tasks {
     outputJar.set(layout.buildDirectory.file("libs/PaperweightTestPlugin-${project.version}.jar"))
   }
    */
+
+  shadowJar {
+    // helper function to relocate a package into our package
+    fun reloc(pkg: String) = relocate(pkg, "io.papermc.paperweight.testplugin.dependency.$pkg")
+
+    // relocate cloud and it's transitive dependencies
+    reloc("cloud.commandframework")
+    reloc("io.leangen.geantyref")
+  }
 }
 
 // Configure plugin.yml generation
