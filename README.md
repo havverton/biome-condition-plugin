@@ -1,11 +1,14 @@
-# paperweight-test-plugin
+#Biome Condition Extension
+This extension for MythicMobs allows set biome condition on MobSpawner. List your biomes in "biomes{b=first:biome, second:biome, etc.}":
 
-jmp's test plugin for [`paperweight-userdev`](https://github.com/PaperMC/paperweight/tree/main/paperweight-userdev) development
+Example of MM spawner file: 
 
-(also serves as an example until more thorough documentation is created)
-
-### note
-
-- `build.gradle.kts` and `settings.gradle.kts` both contain important configuration.
-- `paperweight-userdev` automatically detects shadow and will use `shadowJar` as input for `reobfJar`. This means no extra configuration is required to use `paperweight-userdev` with shadow. See the `shadow` branch on this repository for an exmaple usage of shadow with `paperweight-userdev`.
-- The `plugin-yml` and `run-paper` Gradle plugins are both optional, however I use them in almost all my plugin projects and recommend at least trying them out. `plugin-yml` auto-generates your plugin.yml file from configuration in the build file, and `run-paper` allows for launching a test server with your plugin through the `runServer` and `runMojangMappedServer` tasks.
+RandomSkeletonKing:
+MobType: SkeletonKing
+Worlds: world
+Chance: 0.001
+Priority: 1
+Action: REPLACE
+Conditions:
+- outside true
+- biomes{b=minecraft:forest,minecraft:birch_forest}
