@@ -22,19 +22,19 @@ object BiomeUtils {
     return Pair(key.namespace, key.path)
   }
 
-  val biomeRegistry: Registry<Biome>
+  private val biomeRegistry: Registry<Biome>
     get() {
       val dedicatedServer: DedicatedServer = (Bukkit.getServer() as CraftServer).server
       return dedicatedServer.registryAccess().registry(Registry.BIOME_REGISTRY).get()
     }
 
-  fun getBiomeKey(location: Location): ResourceLocation {
+  private fun getBiomeKey(location: Location): ResourceLocation {
     val registry: Registry<Biome> = biomeRegistry
     val resourceKey = getBiomeBase(location)
-    return registry.getKey(resourceKey)!!
+    return registry.getKey(resourceKey)
   }
 
-  fun getBiomeBase(location: Location): Biome {
+  private fun getBiomeBase(location: Location): Biome {
     val pos = BlockPos(location.blockX, location.blockY, location.blockZ)
     val nmsChunk: LevelChunk = (location.world as CraftWorld).handle.getChunkAt(pos)
     return nmsChunk.getNoiseBiome(pos.x, 0, pos.z)

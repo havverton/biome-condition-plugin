@@ -23,7 +23,7 @@ class BiomeCondition(line: String?, mlc: MythicLineConfig, conditionVar: String)
   private val biomeMap = BiomeUtils.getBiomeMap()
 
   init {
-    val b = mlc.getString(arrayOf("biomes", "b"), "minecraft:plains", *arrayOf(conditionVar))
+    val b = mlc.getString(arrayOf("biomes", "b"), "minecraft:plains", conditionVar)
     for (s: String in b.split(",")) {
       biomes.add(s.lowercase(Locale.getDefault()))
     }

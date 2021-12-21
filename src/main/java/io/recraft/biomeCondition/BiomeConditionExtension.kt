@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class BiomeConditionExtension : JavaPlugin(), Listener {
   override fun onEnable() {
-    Bukkit.getPluginManager().registerEvents(this, this);
+    Bukkit.getPluginManager().registerEvents(this, this)
   }
 
   @EventHandler
