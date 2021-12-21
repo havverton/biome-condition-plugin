@@ -17,9 +17,9 @@ import java.util.*
 )
 class BiomeCondition(line: String?, mlc: MythicLineConfig, conditionVar: String) :
   SkillCondition(line), ILocationCondition {
-  @MythicField(name = "biomes", aliases = ["bs"], description = "A list of biomes to check")
+  @MythicField(name = "biomes", aliases = ["b"], description = "A list of biomes to check")
   private val biomes: MutableSet<String> = HashSet()
-  private val biomeIds: Set<Int> = HashSet()
+  private val biomeIds: MutableSet<Int> = HashSet()
   private val biomeMap = BiomeUtils.getBiomeMap()
 
   init {
@@ -28,10 +28,9 @@ class BiomeCondition(line: String?, mlc: MythicLineConfig, conditionVar: String)
       biomes.add(s.lowercase(Locale.getDefault()))
     }
 
-    val biomeIds: MutableSet<Int> = HashSet()
     for (biome: String in biomes) {
       if (biomeMap.containsKey(biome)) {
-        biomeMap[biome]?.let { biomeIds.add(it) }
+        biomeIds.add(biomeMap.getValue(biome))
       } else Log.info("Could not locate biome with name \"$biome\" in file ")
     }
   }
