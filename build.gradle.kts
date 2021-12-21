@@ -1,4 +1,5 @@
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   `java-library`
@@ -8,6 +9,7 @@ plugins {
 
   // Shades and relocates dependencies into our plugin jar. See https://imperceptiblethoughts.com/shadow/introduction/
   id("com.github.johnrengelman.shadow") version "7.1.0"
+  kotlin("jvm") version "1.6.10"
 }
 
 group = "io.papermc.paperweight"
@@ -30,7 +32,10 @@ dependencies {
   // Shadow will include the runtimeClasspath by default, which implementation adds to.
   // Dependencies you don't want to include go in the compileOnly configuration.
   // Make sure to relocate shaded dependencies!
+
   implementation("cloud.commandframework", "cloud-paper", "1.6.0")
+  compileOnly ("io.lumine.xikage:MythicMobs:4.9.1")
+  implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks {
@@ -63,7 +68,7 @@ tasks {
 
   shadowJar {
     // helper function to relocate a package into our package
-    fun reloc(pkg: String) = relocate(pkg, "io.papermc.paperweight.testplugin.dependency.$pkg")
+    fun reloc(pkg: String) = relocate(pkg, "io.recraft.condition.dependency.$pkg")
 
     // relocate cloud and it's transitive dependencies
     reloc("cloud.commandframework")
@@ -74,7 +79,19 @@ tasks {
 // Configure plugin.yml generation
 bukkit {
   load = BukkitPluginDescription.PluginLoadOrder.STARTUP
-  main = "io.papermc.paperweight.testplugin.TestPlugin"
+  main = "io.recraft.condition.MysticmobsExtension"
   apiVersion = "1.18"
   authors = listOf("Author")
+}
+repositories {
+  mavenCentral()
+  maven (url = "https://mvn.lumine.io/repository/maven-public")
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+  jvmTarget = "17"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+  jvmTarget = "17"
 }
