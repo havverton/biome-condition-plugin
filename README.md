@@ -1,7 +1,10 @@
 #Biome Condition Extension
-This extension for MythicMobs allows set biome condition on MobSpawner. List your biomes in "biomes{b=first:biome, second:biome, etc.}":
+***
+This extension for MythicMobs allows set biome condition on MobSpawner.
 
-Example of MM spawner file: 
+List your biomes in "biomes{b=first:biome, second:biome, etc.}":
+***
+***Example of MM spawner file***: 
 
 RandomSkeletonKing:
 MobType: SkeletonKing
