@@ -2,7 +2,7 @@
 
 This extension for MythicMobs allows set biome condition on MobSpawner.
 
-List your biomes in "biomes{b=first:biome, second:biome, etc.}":
+List your biomes in `biomes{b=minecraft:planes, minecraft:desert, etc}`:
 ***
 ***Example of MM spawner file***: 
 
