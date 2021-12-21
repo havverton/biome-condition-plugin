@@ -68,7 +68,7 @@ tasks {
 
   shadowJar {
     // helper function to relocate a package into our package
-    fun reloc(pkg: String) = relocate(pkg, "io.recraft.condition.dependency.$pkg")
+    fun reloc(pkg: String) = relocate(pkg, "io.recraft.biomeCondition.dependency.$pkg")
 
     // relocate cloud and it's transitive dependencies
     reloc("cloud.commandframework")
@@ -79,7 +79,7 @@ tasks {
 // Configure plugin.yml generation
 bukkit {
   load = BukkitPluginDescription.PluginLoadOrder.STARTUP
-  main = "io.recraft.condition.MysticmobsExtension"
+  main = "io.recraft.biomeCondition.BiomeConditionExtension"
   apiVersion = "1.18"
   authors = listOf("Author")
 }
