@@ -6,7 +6,7 @@ List your biomes in "biomes{b=first:biome, second:biome, etc.}":
 ***
 ***Example of MM spawner file***: 
 
-```
+```YAML
 RandomSkeletonKing:
  MobType: SkeletonKing
  Worlds: world
