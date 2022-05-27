@@ -1,12 +1,13 @@
 package io.recraft.biomeCondition
 
-import io.lumine.xikage.mythicmobs.adapters.AbstractLocation
-import io.lumine.xikage.mythicmobs.io.MythicLineConfig
-import io.lumine.xikage.mythicmobs.skills.SkillCondition
-import io.lumine.xikage.mythicmobs.skills.conditions.ILocationCondition
-import io.lumine.xikage.mythicmobs.util.annotations.MythicCondition
-import io.lumine.xikage.mythicmobs.util.annotations.MythicField
-import io.lumine.xikage.mythicmobs.utils.logging.Log
+import io.lumine.mythic.api.adapters.AbstractLocation
+import io.lumine.mythic.api.config.MythicLineConfig
+import io.lumine.mythic.api.skills.conditions.ILocationCondition
+import io.lumine.mythic.core.skills.SkillCondition
+import io.lumine.mythic.core.utils.annotations.MythicCondition
+import io.lumine.mythic.core.utils.annotations.MythicField
+import io.lumine.mythic.utils.logging.Log
+
 import java.util.*
 
 

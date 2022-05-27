@@ -1,7 +1,8 @@
 package io.recraft.biomeCondition
 
-import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicConditionLoadEvent
-import io.lumine.xikage.mythicmobs.utils.logging.Log
+
+import io.lumine.mythic.bukkit.events.MythicConditionLoadEvent
+import io.lumine.mythic.utils.logging.Log
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

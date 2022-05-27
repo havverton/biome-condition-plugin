@@ -22,7 +22,7 @@ java {
 }
 
 dependencies {
-  paperDevBundle("1.18-R0.1-SNAPSHOT")
+  paperDevBundle("1.18.2-R0.1-SNAPSHOT")
   // paperweightDevBundle("com.example.paperfork", "1.18-R0.1-SNAPSHOT")
 
   // You will need to manually specify the full dependency if using the groovy gradle dsl
@@ -34,7 +34,7 @@ dependencies {
   // Make sure to relocate shaded dependencies!
 
   implementation("cloud.commandframework", "cloud-paper", "1.6.0")
-  compileOnly ("io.lumine.xikage:MythicMobs:4.9.1")
+  compileOnly("io.lumine:Mythic-Dist:5.0.1")
   implementation(kotlin("stdlib-jdk8"))
 }
 
