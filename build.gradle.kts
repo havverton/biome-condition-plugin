@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   `java-library`
+  `maven-publish`
   id("io.papermc.paperweight.userdev") version "1.3.2"
   id("xyz.jpenilla.run-paper") version "1.0.6" // Adds runServer and runMojangMappedServer tasks for testing
   id("net.minecrell.plugin-yml.bukkit") version "0.5.1" // Generates plugin.yml
@@ -12,14 +13,39 @@ plugins {
   kotlin("jvm") version "1.6.10"
 }
 
-group = "io.papermc.paperweight"
+group = "io.recraft"
 version = "1.0.1-SNAPSHOT"
-description = "Test plugin for paperweight-userdev"
+description = "MythicMobs addon that adds vanilla biomes support"
 
 java {
   // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.
   toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
+kotlin {
+  jvmToolchain {
+    (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(17))
+  }
+}
+
+publishing {
+  publications {
+    create<MavenPublication>("maven") {
+      groupId = "io.recraft"
+      artifactId = "biome-condition"
+      from(components["java"])
+    }
+    repositories {
+      maven {
+        url = uri("https://nexus.recraft.pro/repository/maven-snapshots/")
+        credentials {
+          username = "admin"
+          password = System.getenv()["NEXUS_PASSWORD"]
+        }
+      }
+    }
+  }
+}
+
 
 dependencies {
   paperDevBundle("1.18.2-R0.1-SNAPSHOT")
