@@ -6,9 +6,7 @@ import io.lumine.mythic.api.skills.conditions.ILocationCondition
 import io.lumine.mythic.core.skills.SkillCondition
 import io.lumine.mythic.core.utils.annotations.MythicCondition
 import io.lumine.mythic.core.utils.annotations.MythicField
-import io.lumine.mythic.utils.logging.Log
-
-import java.util.*
+import io.recraft.biomeCondition.BiomeConditionPlugin.Companion.plugin
 
 
 @MythicCondition(
@@ -20,26 +18,25 @@ class BiomeCondition(line: String?, mlc: MythicLineConfig, conditionVar: String)
   SkillCondition(line), ILocationCondition {
   @MythicField(name = "biomes", aliases = ["b"], description = "A list of biomes to check")
   private val biomes: MutableSet<String> = HashSet()
-  private val biomeIds: MutableSet<Int> = HashSet()
-  private val biomeMap = BiomeUtils.getBiomeMap()
 
   init {
     val b = mlc.getString(arrayOf("biomes", "b"), "minecraft:plains", conditionVar)
     for (s: String in b.split(",")) {
-      biomes.add(s.lowercase(Locale.getDefault()))
+      biomes.add(s.lowercase().trim())
     }
 
     for (biome: String in biomes) {
-      if (biomeMap.containsKey(biome)) {
-        biomeIds.add(biomeMap.getValue(biome))
-      } else Log.info("Could not locate biome with name \"$biome\" in file ")
+      if (BiomeUtils.biomes.contains(biome)) {
+        biomes.add(biome)
+      } else {
+        plugin.logger.warning("Could not locate biome with name \"$biome\", line ${mlc.line}")
+      }
     }
   }
 
   override fun check(abstractLocation: AbstractLocation): Boolean {
-    return biomeIds.contains(
+    return biomes.contains(
       BiomeUtils.getBiomeAt(abstractLocation)
     )
   }
 }
-

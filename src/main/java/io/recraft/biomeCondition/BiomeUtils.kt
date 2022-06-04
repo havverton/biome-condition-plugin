@@ -2,44 +2,33 @@ package io.recraft.biomeCondition
 
 import io.lumine.mythic.api.adapters.AbstractLocation
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.server.dedicated.DedicatedServer
 import net.minecraft.world.level.biome.Biome
 import org.bukkit.Bukkit
-import org.bukkit.World
 import org.bukkit.craftbukkit.v1_18_R2.CraftServer
 import org.bukkit.craftbukkit.v1_18_R2.CraftWorld
 
 
 object BiomeUtils {
 
-  private var biomeMap: MutableMap<String, Int> = HashMap()
+  private val cache = mutableMapOf<Biome, String>()
+  val biomes by lazy {
+    // Lazy to only compute this once it's requested assuming world and data-packs are already loaded at this point
+    val biomeRegistry = getBiomeRegistry()
+    biomeRegistry.map { biomeRegistry.getKey(it).toString() }.toSet()
+  }
 
-  private val biomeRegistry: Registry<Biome>
-    get() {
-      val dedicatedServer: DedicatedServer = (Bukkit.getServer() as CraftServer).server
-      return dedicatedServer.registryAccess().registry(Registry.BIOME_REGISTRY).get()
-    }
-
-  fun getBiomeAt(location: AbstractLocation): Int {
+  private fun getBiomeRegistry(): Registry<Biome> {
     val dedicatedServer: DedicatedServer = (Bukkit.getServer() as CraftServer).server
-    val world: World? = dedicatedServer.server.getWorld(location.world.uniqueId)
-    val biome: Holder<Biome> =
-      (world as CraftWorld).handle.getBiome(BlockPos(location.blockX, location.blockY, location.blockZ))
-    return biomeRegistry.getId(biome.value())
+    return dedicatedServer.registryAccess().registry(Registry.BIOME_REGISTRY).get()
   }
 
+  fun getBiomeAt(location: AbstractLocation): String {
+    val world = Bukkit.getWorld(location.world.uniqueId)!! as CraftWorld
+    val biome = world.handle.getBiome(BlockPos(location.blockX, location.blockY, location.blockZ)).value()
 
-  fun getBiomeMap(): MutableMap<String, Int> {
-    if (biomeMap.isEmpty()) {
-      biomeRegistry.forEach { entry ->
-        val name: String = biomeRegistry.getKey(entry).toString()
-        val id: Int = biomeRegistry.getId(entry)
-        biomeMap[name] = id
-      }
-    }
-    return biomeMap
+    return cache.computeIfAbsent(biome) { getBiomeRegistry().getKey(biome).toString() }
   }
+
 }
-

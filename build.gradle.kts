@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "io.papermc.paperweight"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.1-SNAPSHOT"
 description = "Test plugin for paperweight-userdev"
 
 java {
@@ -34,7 +34,7 @@ dependencies {
   // Make sure to relocate shaded dependencies!
 
   implementation("cloud.commandframework", "cloud-paper", "1.6.0")
-  compileOnly("io.lumine:Mythic-Dist:5.0.1")
+  compileOnly("io.lumine:Mythic-Dist:5.1.0-SNAPSHOT")
   implementation(kotlin("stdlib-jdk8"))
 }
 
@@ -79,14 +79,16 @@ tasks {
 // Configure plugin.yml generation
 bukkit {
   load = BukkitPluginDescription.PluginLoadOrder.STARTUP
-  main = "io.recraft.biomeCondition.BiomeConditionExtension"
+  main = "io.recraft.biomeCondition.BiomeConditionPlugin"
   apiVersion = "1.18"
   authors = listOf("Author")
 }
+
 repositories {
   mavenCentral()
-  maven (url = "https://mvn.lumine.io/repository/maven-public")
+  maven("https://mvn.lumine.io/repository/maven-public")
 }
+
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
   jvmTarget = "17"
