@@ -59,15 +59,20 @@ dependencies {
   // Dependencies you don't want to include go in the compileOnly configuration.
   // Make sure to relocate shaded dependencies!
 
-  implementation("cloud.commandframework", "cloud-paper", "1.6.0")
   compileOnly("io.lumine:Mythic-Dist:5.1.0-SNAPSHOT")
-  implementation(kotlin("stdlib-jdk8"))
+  // Kotlin StdLib
+  compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
+  // Reflection stuff like class.createInstance()
+  compileOnly("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
+  // Kotlin's coroutines (Mostly for mongodb)
+  compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
 }
 
 tasks {
   // Configure reobfJar to run when invoking the build task
   build {
     dependsOn(reobfJar)
+    dependsOn(shadowJar)
   }
 
   compileJava {
@@ -84,13 +89,9 @@ tasks {
     filteringCharset = Charsets.UTF_8.name() // We want UTF-8 for everything
   }
 
-  /*
   reobfJar {
-    // This is an example of how you might change the output location for reobfJar. It's recommended not to do this
-    // for a variety of reasons, however it's asked frequently enough that an example of how to do it is included here.
-    outputJar.set(layout.buildDirectory.file("libs/PaperweightTestPlugin-${project.version}.jar"))
+    outputJar.set(layout.buildDirectory.file("release/recraft-${project.name}-${project.version}.jar"))
   }
-   */
 
   shadowJar {
     // helper function to relocate a package into our package
