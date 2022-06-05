@@ -75,6 +75,10 @@ tasks {
     dependsOn(shadowJar)
   }
 
+  reobfJar {
+    outputJar.set(layout.buildDirectory.file("release/recraft-${project.name}-${project.version}.jar"))
+  }
+
   compileJava {
     options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
 
@@ -99,8 +103,7 @@ tasks {
 
     // relocate cloud and it's transitive dependencies
     reloc("cloud.commandframework")
-    reloc("io.leangen.geantyref")
-  }
+    reloc("io.leangen.geantyref") }
 }
 
 // Configure plugin.yml generation

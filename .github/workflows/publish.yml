@@ -33,4 +33,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           if-no-files-found: error
+          name: ${{ github.event.repository.name }}-${{ github.ref_name }}-${{ github.sha }}
           path: build/release/*.jar
