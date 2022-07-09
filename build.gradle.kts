@@ -4,9 +4,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
   `java-library`
   `maven-publish`
-  id("io.papermc.paperweight.userdev") version "1.3.2"
+  id("io.papermc.paperweight.userdev") version "1.3.7"
   id("xyz.jpenilla.run-paper") version "1.0.6" // Adds runServer and runMojangMappedServer tasks for testing
-  id("net.minecrell.plugin-yml.bukkit") version "0.5.1" // Generates plugin.yml
+  id("net.minecrell.plugin-yml.bukkit") version "0.5.2" // Generates plugin.yml
 
   // Shades and relocates dependencies into our plugin jar. See https://imperceptiblethoughts.com/shadow/introduction/
   id("com.github.johnrengelman.shadow") version "7.1.0"
@@ -14,8 +14,8 @@ plugins {
 }
 
 group = "io.recraft"
-version = "1.0.1-SNAPSHOT"
-description = "MythicMobs addon that adds vanilla biomes support"
+version = "1.0.2-SNAPSHOT"
+description = "MythicMobs addon that adds custom biomes condition support"
 
 java {
   // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.
@@ -48,7 +48,8 @@ publishing {
 
 
 dependencies {
-  paperDevBundle("1.18.2-R0.1-SNAPSHOT")
+  paperDevBundle("1.19-R0.1-SNAPSHOT")
+
   // paperweightDevBundle("com.example.paperfork", "1.18-R0.1-SNAPSHOT")
 
   // You will need to manually specify the full dependency if using the groovy gradle dsl

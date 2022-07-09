@@ -6,8 +6,8 @@ import net.minecraft.core.Registry
 import net.minecraft.server.dedicated.DedicatedServer
 import net.minecraft.world.level.biome.Biome
 import org.bukkit.Bukkit
-import org.bukkit.craftbukkit.v1_18_R2.CraftServer
-import org.bukkit.craftbukkit.v1_18_R2.CraftWorld
+import org.bukkit.craftbukkit.v1_19_R1.CraftServer
+import org.bukkit.craftbukkit.v1_19_R1.CraftWorld
 
 
 object BiomeUtils {
